@@ -1,20 +1,21 @@
 package queue;
 
 import java.util.Arrays;
+// Inv: size >= 0 && ∀ i = 0..size-1 queue[i] != null
 
 public class ArrayQueueADT {
     private int head;
     private int tail;
     private Object[] elements = new Object[5];
 
-    // Pre: elem != null && elem is immutable
+    // Pre: elem != null
     public static void enqueue(ArrayQueueADT queue, Object elem) {
         assert elem != null;
         ensureCapacity(queue, size(queue) + 1);
         queue.elements[queue.tail] = elem;
         queue.tail = (queue.tail + 1) % queue.elements.length;
     }
-    // Post: size = size' + 1 && queue[0..size'- 1] is immutable && queue[size - 1] = elem
+    // Post: size = size' + 1 && ∀ i = 0..size'-1 queue[i] = queue[i]' && queue[size - 1] = elem
 
 
     private static void ensureCapacity(ArrayQueueADT queue, int capacity) {
@@ -67,7 +68,7 @@ public class ArrayQueueADT {
         queue.head = (queue.head + 1) % queue.elements.length;
         return res;
     }
-    // Post: res = queue[head] && size = size' - 1
+    // Post: res = queue[0] && size = size' - 1 && ∀ i = 1..size queue[i] = queue[i]'
 
 
     public static boolean isEmpty(ArrayQueueADT queue) {
@@ -81,7 +82,7 @@ public class ArrayQueueADT {
         queue.head = 0;
         queue.tail = 0;
     }
-    // Post: size = 0, head = 0, tail = 0
+    // Post: queue is empty
 
 
     // Pre: size > 0
@@ -91,7 +92,7 @@ public class ArrayQueueADT {
         }
         return queue.elements[queue.head];
     }
-    // Post: res = queue[head] && queue is immutable
+    // Post: res = queue[0] && queue is immutable
 
 
     public static int size(ArrayQueueADT queue) {
@@ -100,6 +101,6 @@ public class ArrayQueueADT {
         }
         return queue.tail - queue.head;
     }
-    // Post: res = size (size of queue)
+    // Post: res = size && queue is immutable
 
 }

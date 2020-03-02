@@ -1,20 +1,21 @@
 package queue;
 
 import java.util.Arrays;
+// Inv: size >= 0 && ∀ i = 0..size-1 queue[i] != null
 
 public class ArrayQueueModule {
     static int head;
     static int tail;
     static Object[] elements = new Object[5];
 
-    // Pre: elem != null && elem is immutable
+    // Pre: elem != null
     public static void enqueue(Object elem) {
         assert elem != null;
         ensureCapacity(size() + 1);
         elements[tail] = elem;
         tail = (tail + 1) % elements.length;
     }
-    // Post: size = size' + 1 && queue[0..size'- 1] is immutable && queue[size - 1] = elem
+    // Post: size = size' + 1 && ∀ i = 0..size'-1 queue[i] = queue[i]' && queue[size - 1] = elem
 
     // Pre: size > 0
     public static Object dequeue() {
@@ -26,7 +27,7 @@ public class ArrayQueueModule {
         head = (head + 1) % elements.length;
         return res;
     }
-    // Post: res = queue[head] && size = size' - 1
+    // Post: res = queue[0] && size = size' - 1 && ∀ i = 1..size queue[i] = queue[i]'
 
     public static boolean isEmpty() {
         return head == tail;
@@ -38,7 +39,7 @@ public class ArrayQueueModule {
         head = 0;
         tail = 0;
     }
-    // Post: size = 0, head = 0, tail = 0
+    // Post: queue is empty
 
     // Pre: size > 0
     public static Object element() {
@@ -47,7 +48,7 @@ public class ArrayQueueModule {
         }
         return elements[head];
     }
-    // Post: res = queue[head] && queue is immutable
+    // Post: res = queue[0] && queue is immutable
 
     public static Object[] toArray() {
         Object[] res = new Object[size()];
@@ -92,5 +93,5 @@ public class ArrayQueueModule {
         }
         return tail - head;
     }
-    // Post: res = size (size of queue)
+    // Post: res = size && queue is immutable
 }
