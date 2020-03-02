@@ -19,9 +19,7 @@ public class ArrayQueueModule {
 
     // Pre: size > 0
     public static Object dequeue() {
-        if (isEmpty()) {
-            return null;
-        }
+        assert !isEmpty();
         Object res = elements[head];
         elements[head] = null;
         head = (head + 1) % elements.length;
@@ -43,9 +41,7 @@ public class ArrayQueueModule {
 
     // Pre: size > 0
     public static Object element() {
-        if (isEmpty()) {
-            return null;
-        }
+        assert !isEmpty();
         return elements[head];
     }
     // Post: res = queue[0] && queue is immutable
