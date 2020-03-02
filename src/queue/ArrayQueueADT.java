@@ -60,9 +60,7 @@ public class ArrayQueueADT {
 
     // Pre: size > 0
     public static Object dequeue(ArrayQueueADT queue) {
-        if (isEmpty(queue)) {
-            return null;
-        }
+        assert !isEmpty(queue);
         Object res = queue.elements[queue.head];
         queue.elements[queue.head] = null;
         queue.head = (queue.head + 1) % queue.elements.length;
@@ -87,9 +85,7 @@ public class ArrayQueueADT {
 
     // Pre: size > 0
     public static Object element(ArrayQueueADT queue) {
-        if (isEmpty(queue)) {
-            return null;
-        }
+        assert !isEmpty(queue);
         return queue.elements[queue.head];
     }
     // Post: res = queue[0] && queue is immutable
